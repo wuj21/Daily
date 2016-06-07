@@ -6,7 +6,7 @@ import org.junit.Test;
 import java.io.File;
 import java.io.RandomAccessFile;
 
-import static org.junit.Assert.*;
+import static junit.framework.Assert.*;
 
 public class MD5SummerTest {
 
