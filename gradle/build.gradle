@@ -1,0 +1,9 @@
+task hello {
+     doLast {
+     println 'hello gradle'
+     }
+}
+
+task hello1 <<  {
+     println  'hello gradle new'
+     }
