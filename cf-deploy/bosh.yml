@@ -3,18 +3,18 @@ name: bosh
 
 releases:
 - name: bosh
-  url: https://bosh.io/d/github.com/cloudfoundry/bosh?v=257.15
-  sha1: f4cf3579bfac994cd3bde4a9d8cbee3ad189c8b2
+  url: https://bosh.io/d/github.com/cloudfoundry/bosh?v=260
+  sha1: f8f086974d9769263078fb6cb7927655744dacbc
 - name: bosh-openstack-cpi
-  url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-openstack-cpi-release?v=26
-  sha1: 09c18a410aca8a15c11fcbe028f3eac39bef31b5
+  url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-openstack-cpi-release?v=27
+  sha1: 85e6244978f775c888bbd303b874a2c158eb43c4
 
 resource_pools:
 - name: vms
   network: private
   stemcell:
-    url: https://bosh.io/d/stemcells/bosh-openstack-kvm-ubuntu-trusty-go_agent?v=3263.8
-    sha1: 3585a7d5239107a4728c8601517dbba0a416378a
+    url: https://bosh.io/d/stemcells/bosh-openstack-kvm-ubuntu-trusty-go_agent?v=3312
+    sha1: 36dd5035c3868aa9f2da32291e6338636b63c345
   cloud_properties:
     instance_type: m1.xlarge
 
@@ -29,7 +29,7 @@ networks:
   - range: 192.168.100.0/24 # <--- Replace with a private subnet CIDR
     gateway: 192.168.100.1 # <--- Replace with a private subnet's gateway
     dns: [10.152.2.10] # <--- Replace with your DNS
-    cloud_properties: {net_id: 953e34d3-7d5f-4f3c-82af-e5e5587c1561} # <--- # Replace with private network UUID
+    cloud_properties: {net_id: 6dae69e6-8afb-4e9a-9c21-4dd6896f6a60} # <--- # Replace with private network UUID
 - name: public
   type: vip
 
@@ -54,7 +54,7 @@ jobs:
     static_ips: [192.168.100.20] # <--- Replace with a private IP
     default: [dns, gateway]
   - name: public
-    static_ips: [10.152.11.43] # <--- Replace with a floating IP
+    static_ips: [10.152.11.159] # <--- Replace with a floating IP
 
   properties:
     nats:
@@ -104,9 +104,9 @@ jobs:
       resurrector_enabled: true
 
     openstack: &openstack
-      auth_url: http://10.152.11.30:5000/v2.0 # <--- Replace with OpenStack Identity API endpoint
+      auth_url: http://10.152.11.24:5000/v2.0 # <--- Replace with OpenStack Identity API endpoint
       project: cf # <--- Replace with OpenStack project name
-      domain: 10.152.11.30.xip.io # <--- Replace with OpenStack domain name
+      domain: 10.152.11.24.xip.io # <--- Replace with OpenStack domain name
       username: cf # <--- Replace with OpenStack username
       tenant: cf
       api_key: cetas123 # <--- Replace with OpenStack password
@@ -121,12 +121,12 @@ cloud_provider:
   template: {name: openstack_cpi, release: bosh-openstack-cpi}
 
   ssh_tunnel:
-    host: 10.152.11.43 # <--- Replace with a floating IP
+    host: 10.152.11.159 # <--- Replace with a floating IP
     port: 22
     user: vcap
     private_key: ./bosh.key # Path relative to this manifest file
 
-  mbus: "https://mbus:mbus-password@10.152.11.43:6868" # <--- Replace with a floating IP
+  mbus: "https://mbus:mbus-password@10.152.11.159:6868" # <--- Replace with a floating IP
 
   properties:
     openstack: *openstack
