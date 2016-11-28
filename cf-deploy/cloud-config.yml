@@ -1,0 +1,119 @@
+---
+azs:
+- name: nova
+  cloud_properties:
+    availability_zone: nova
+networks:
+- name: cf
+  type: manual
+  subnets:
+  - dns:
+    - 10.152.2.10
+    range: 192.168.100.0/24
+    gateway: 192.168.100.1
+    azs:
+    - nova
+    cloud_properties:
+      net_id: 6dae69e6-8afb-4e9a-9c21-4dd6896f6a60
+    reserved:
+    - 192.168.100.2-192.168.100.101
+    - 192.168.100.123
+    - 192.168.100.150-192.168.100.254
+    static:
+    - 192.168.100.106
+    - 192.168.100.107
+    - 192.168.100.108
+    - 192.168.100.109
+    - 192.168.100.110
+    - 192.168.100.111
+    - 192.168.100.114
+    - 192.168.100.115
+    - 192.168.100.116
+    - 192.168.100.120
+- name: vip-network
+  type: vip
+  cloud_properties: {}
+vm_types:
+- name: m1.small
+  cloud_properties:
+    instance_type: m1.small
+- name: m1.medium
+  cloud_properties:
+    instance_type: m1.medium
+- name: m1.large
+  cloud_properties:
+    instance_type: m1.large
+- name: m1.xlarge
+  cloud_properties:
+    instance_type: m1.xlarge
+disk_types:
+- name: '1024'
+  disk_size: 1024
+  cloud_properties: {}
+- name: '2048'
+  disk_size: 2048
+  cloud_properties: {}
+- name: '5120'
+  disk_size: 5120
+  cloud_properties: {}
+- name: '10240'
+  disk_size: 10240
+  cloud_properties: {}
+- name: '20480'
+  disk_size: 20480
+  cloud_properties: {}
+- name: '30720'
+  disk_size: 30720
+  cloud_properties: {}
+- name: '51200'
+  disk_size: 51200
+  cloud_properties: {}
+- name: '76800'
+  disk_size: 76800
+  cloud_properties: {}
+- name: '102400'
+  disk_size: 102400
+  cloud_properties: {}
+- name: '153600'
+  disk_size: 153600
+  cloud_properties: {}
+- name: '204800'
+  disk_size: 204800
+  cloud_properties: {}
+- name: '307200'
+  disk_size: 307200
+  cloud_properties: {}
+- name: '512000'
+  disk_size: 512000
+  cloud_properties: {}
+- name: '768000'
+  disk_size: 768000
+  cloud_properties: {}
+- name: '1048576'
+  disk_size: 1048576
+  cloud_properties: {}
+- name: '2097152'
+  disk_size: 2097152
+  cloud_properties: {}
+- name: '5242880'
+  disk_size: 5242880
+  cloud_properties: {}
+- name: '10485760'
+  disk_size: 10485760
+  cloud_properties: {}
+- name: '16777216'
+  disk_size: 16777216
+  cloud_properties: {}
+compilation:
+  workers: 4
+  network: cf
+  az: nova
+  reuse_compilation_vms: true
+  vm_type: m1.large
+  vm_extensions: []
+  env:
+    bosh:
+      password: "$6$e5617dcfa275af28$N20wkbg3URar5IbOkYOc6/OSJrenA8TTo43S8RhbS6EWOfgQJ4RY3dbs/Qf225KcBO0qzDb9nZI0VyGy7F.T1."
+vm_extensions:
+- name: public_ip
+  cloud_properties: {}

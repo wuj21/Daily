@@ -1,6 +1,6 @@
 ---
-name: cf-af20254c2cc471e8eafc
-director_uuid: 6279c20b-253c-44eb-9fe6-1214a35682a6
+name: cf
+director_uuid: b520179b-10d3-4baf-9871-28621f8a644c
 releases:
 - name: cf-mysql
   version: latest
@@ -5200,7 +5200,7 @@ instance_groups:
 - name: diego_cell
   azs:
   - nova
-  instances: 2
+  instances: 1
   lifecycle: service
   jobs:
   - name: consul_agent
@@ -5544,9 +5544,9 @@ instance_groups:
     default:
     - dns
     - gateway
-  migrated_from:
-  - name: diego_cell-partition-9c8c8ca60b426e8585a3
-    az: nova
+#  migrated_from:
+#  - name: diego_cell-partition-9c8c8ca60b426e8585a3
+#    az: nova
 - name: doppler
   azs:
   - nova
@@ -5831,36 +5831,6 @@ instance_groups:
   env:
     bosh:
       password: "$6$daf02d92a6271b01$SPeCrvmeuU5Dh7B0and3T1NqcW7W.SbotK3e6.ciy5lmOVwrkjYpwLOEqIi6HUqi/ZuV4LdWI/O6lxewa9D8v."
-  update:
-    max_in_flight: 1
-  networks:
-  - name: cf
-    default:
-    - dns
-    - gateway
-- name: mysql-rejoin-unsafe
-  azs:
-  - nova
-  instances: 1
-  lifecycle: errand
-  jobs:
-  - name: rejoin-unsafe
-    release: cf-mysql
-    consumes: {}
-    provides: {}
-  vm_type: m1.small
-  stemcell: bosh-openstack-kvm-ubuntu-trusty-go_agent-raw
-  properties:
-    cluster_ips:
-    - 192.168.100.111
-    cf_mysql:
-      mysql:
-        galera_healthcheck:
-          endpoint_username: PMqHQ2JU_McVfzoqssnF7VaOfifHtrg3
-          endpoint_password: PMqHQ2JU_McVfzoqssnF7VaOfifHtrg3
-  env:
-    bosh:
-      password: "$6$e3c34127f7278a5a$5ydesRLAmDZFKUqrDixMEvdHmHkXiC5SJTUjbhYczFL6vPNlSHvH7frk8bPpIReRMIt7q0/jEpB911idR1qPT0"
   update:
     max_in_flight: 1
   networks:
