@@ -8,17 +8,17 @@ networks:
   type: manual
   subnets:
   - dns:
-    - 10.152.2.10
+    - 172.16.1.1
     range: 192.168.100.0/24
     gateway: 192.168.100.1
     azs:
     - nova
     cloud_properties:
-      net_id: 6dae69e6-8afb-4e9a-9c21-4dd6896f6a60
+      net_id: 3408e448-c0dd-4020-8603-9808cd3c764e
     reserved:
     - 192.168.100.2-192.168.100.101
     - 192.168.100.123
-    - 192.168.100.150-192.168.100.254
+    - 192.168.100.220-192.168.100.254
     static:
     - 192.168.100.106
     - 192.168.100.107
@@ -30,6 +30,9 @@ networks:
     - 192.168.100.115
     - 192.168.100.116
     - 192.168.100.120
+    - 192.168.100.200
+    - 192.168.100.201
+    - 192.168.100.202
 - name: vip-network
   type: vip
   cloud_properties: {}
@@ -105,11 +108,11 @@ disk_types:
   disk_size: 16777216
   cloud_properties: {}
 compilation:
-  workers: 4
+  workers: 2
   network: cf
   az: nova
   reuse_compilation_vms: true
-  vm_type: m1.large
+  vm_type: m1.medium
   vm_extensions: []
   env:
     bosh:

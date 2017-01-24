@@ -1,40 +1,26 @@
 {
-    "director_id": "b2e71119-5d2a-4d2c-65df-26eeae9998f7",
-    "installation_id": "cdefed56-1b5b-4ea9-44d0-09276fd762d1",
-    "current_vm_cid": "3583166f-07ee-47f4-9848-8cb682704514",
-    "current_stemcell_id": "31232207-d0d8-4e78-4472-12b6cce8bf0a",
-    "current_disk_id": "eeafa054-0c48-412d-68b0-3e5e2d1aeff5",
-    "current_release_ids": [
-        "c9acefd6-2129-424b-4763-7e178dc80411",
-        "242ec13b-9bdc-46ae-7455-11a8e4af4fb4"
-    ],
-    "current_manifest_sha1": "8c92f243ffae63cb3449f4ce1fe13e5d127379cb",
+    "director_id": "a7eed337-3c16-4b27-6f3e-08e849a1c260",
+    "installation_id": "e7b0f554-65dc-4ac3-5cd7-234ccc69ee78",
+    "current_vm_cid": "b25ccdd6-53a4-4e67-a5d9-d3c4a42b09d8",
+    "current_stemcell_id": "c823dfce-6315-47b5-7014-a1d99d413049",
+    "current_disk_id": "6571cf4a-c6d3-4c9b-5c3d-c301ab7e85e2",
+    "current_release_ids": [],
+    "current_manifest_sha1": "",
     "disks": [
         {
-            "id": "eeafa054-0c48-412d-68b0-3e5e2d1aeff5",
-            "cid": "ebc0544b-5475-4157-9ce8-6c5e0cc3fbbf",
-            "size": 20000,
+            "id": "6571cf4a-c6d3-4c9b-5c3d-c301ab7e85e2",
+            "cid": "4b633852-28f6-4966-b6c3-080f53ad703e",
+            "size": 80000,
             "cloud_properties": {}
         }
     ],
     "stemcells": [
         {
-            "id": "31232207-d0d8-4e78-4472-12b6cce8bf0a",
-            "name": "bosh-openstack-kvm-ubuntu-trusty-go_agent",
-            "version": "3312",
-            "cid": "df800a65-7dce-490d-af39-180922d5b92d"
+            "id": "c823dfce-6315-47b5-7014-a1d99d413049",
+            "name": "bosh-openstack-kvm-ubuntu-trusty-go_agent-raw",
+            "version": "3312.12",
+            "cid": "1b4eefea-cba3-4f9f-beeb-102ae0421389"
         }
     ],
-    "releases": [
-        {
-            "id": "c9acefd6-2129-424b-4763-7e178dc80411",
-            "name": "bosh",
-            "version": "257.15"
-        },
-        {
-            "id": "242ec13b-9bdc-46ae-7455-11a8e4af4fb4",
-            "name": "bosh-openstack-cpi",
-            "version": "27"
-        }
-    ]
+    "releases": []
 }
