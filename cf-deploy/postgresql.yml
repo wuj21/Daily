@@ -1,0 +1,83 @@
+---
+name: postgresql
+director_uuid: d09ffc2b-d11a-4dd8-a390-347c43cf34c9
+releases:
+- name: postgres
+  version: latest
+stemcells:
+- alias: bosh-openstack-kvm-ubuntu-trusty-go_agent-raw
+  os: ubuntu-trusty
+  version: latest
+instance_groups:
+- name: postgresql
+  azs:
+  - nova
+  instances: 3
+  lifecycle: service
+  jobs:
+  - name: postgres
+    release: postgres
+    consumes: {}
+    provides: {}
+  vm_type: m1.large
+  stemcell: bosh-openstack-kvm-ubuntu-trusty-go_agent-raw
+  properties:
+    pcp:
+      system_password: secret
+    pgpool:
+      backend:
+        port: 5432
+      config:
+        enable_pool_hba: true
+        port: 6432
+      databases:
+      - extensions:
+        - citext
+        - pgcypto
+        name: animals
+        users:
+        - hz
+        - Chapter10io
+      debug: true
+      hba:
+      - host all all 0.0.0.0/0 md5
+      - host all all ::/0 md5
+      users:
+      - password: Chapter10io
+        username: hzuser
+      - admin: true
+        password: Chapter10io
+        username: hzadmin
+      - password: if-ya-got-em
+        username: smoke-tests
+    postgres:
+      config:
+        port: 5432
+      hba:
+      - host all all 0.0.0.0/0 md5
+      - host all all ::/0 md5
+      replication:
+        enabled: true
+  env:
+    bosh:
+      password: "$6$42f5a726ccdf2d00$l1Gmn8XtowIdImksHyfE4shZTrbT2qfXGet7vkflyVmSZdC4yBHNKBLcnlwpzGCplFWdjuXI3IQebx2bt9UTD0"
+  update:
+    serial: true
+    max_in_flight: 1
+  networks:
+  - name: cf
+    default:
+    - dns
+    - gateway
+    static_ips:
+    - 192.168.100.200
+    - 192.168.100.201
+    - 192.168.100.202
+  persistent_disk_type: '20480'
+update:
+  canaries: 1
+  canary_watch_time: 30000-300000
+  update_watch_time: 30000-300000
+  max_in_flight: 1
+  max_errors: 2
+  serial: false
