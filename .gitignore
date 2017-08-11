@@ -3,3 +3,6 @@
 .idea/*.*
 .idea/.*
 **/.iml
+go/bin/*
+go/pkg/*
+
