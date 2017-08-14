@@ -16,15 +16,26 @@ func judge(i, j, k uint64) {
 }
 
 func gg1(i, j uint64) {
-	var k uint64
-	for k = j + 1; k <= EDGE; k++ {
+	var k, t uint64
+	if i*i/2 < EDGE {
+		t = i*i/2 + 2
+	} else {
+		t = EDGE
+	}
+	for k = j + 1; k <= t; k++ {
 		judge(i, j, k)
 	}
 }
 
 func gg2(i uint64) {
-	var j uint64
-	for j = i + 1; j < EDGE; j++ {
+	//	fmt.Printf("Trying %d\n", i)
+	var j, t uint64
+	if i*i/2 < EDGE {
+		t = i*i/2 + 2
+	} else {
+		t = EDGE
+	}
+	for j = i + 1; j < t; j++ {
 		gg1(i, j)
 	}
 }
@@ -41,5 +52,6 @@ func main() {
 			}*/
 		go gg2(i)
 	}
+	fmt.Printf("%s\n", "I am here")
 	time.Sleep(5 * time.Minute)
 }
