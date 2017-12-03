@@ -16,13 +16,23 @@ public class ThreadPool {
         }
     }
 
-    public PoolThread getFreeThread() {
+    public synchronized PoolThread getFreeThread() {
         for (PoolThread t: threads) {
             if (!t.isWorking()) {
                 return t;
             }
         }
         return null;
+    }
+
+    public  synchronized int getBusyThreads() {
+        int n = 0;
+        for (PoolThread t: threads) {
+            if (t.isWorking()) {
+                n ++;
+            }
+        }
+        return n;
     }
 
     public void destroy () {

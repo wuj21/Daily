@@ -1,32 +1,32 @@
 package com.maingalaxy.dupfinder;
 
-import com.maingalaxy.dupfinder.util.MD5Summer;
 import com.maingalaxy.threadpool.PoolThread;
 import com.maingalaxy.threadpool.ThreadPool;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.TreeMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by jwu on 3/12/15.
  */
 public class DupFinder {
 
-    private Map<String, List<File>> dupMap = new HashMap<>();
+    private Map<String, List<File>> dupMap = new ConcurrentHashMap<>();
 
-    private Map<Long, List<File>> sizeMap = new HashMap<>();
+    private Map<Long, List<File>> sizeMap = new TreeMap<>();
 
-    private Map<File, String> fileDig = new HashMap<>();
+
 
     private File file = null;
 
     public DupFinder(File file) {this.file = file;}
 
-    private ThreadPool tp = new ThreadPool(4);
+    private ThreadPool tp = new ThreadPool(9);
 
 
     private void analyseFile(File f) throws IOException {
@@ -86,9 +86,27 @@ public class DupFinder {
         }
     }
 
-    public void findDupFile() throws IOException {
+    public void findDupFile() throws Exception {
         analyseFile(this.file);
+        long totalSize = 0;
+        for (Map.Entry<Long, List<File>> entry: sizeMap.entrySet()) {
+            List<File> files = entry.getValue();
+            if (files.size() <= 1) {
+                continue;
+            }
+            for (File f: files) {
+                if (f.length() < 1000000) {
+                    continue;
+                } else {
+                    totalSize += f.length();
+                }
+            }
+        }
+        System.out.println("total size is " + totalSize);
         analyseFile2();
+        while (this.tp.getBusyThreads() != 0) {
+            Thread.sleep (2000);
+        }
         this.tp.destroy();
     }
 
@@ -96,8 +114,8 @@ public class DupFinder {
         return this.dupMap;
     }
 
-    public static void main(String[] args) throws IOException {
-        DupFinder df = new DupFinder(new File("/Volumes/_system_/.cache"));
+    public static void main(String[] args) throws Exception {
+        DupFinder df = new DupFinder(new File("/Volumes/_system_"));
         df.findDupFile();
         Map<String, List<File>> dup = df.getDupFile();
         for (Map.Entry<String, List<File>> entry: dup.entrySet()) {
@@ -106,7 +124,11 @@ public class DupFinder {
             if (files.size() >= 2) {
                 System.out.println("md5sum:" + md5);
                 for (File f: files) {
-                    System.out.println("|----" + f.getAbsolutePath() + "/" + f.getName());
+                    System.out.println("|----" + f.getAbsolutePath());
+                    if (f.getAbsolutePath().lastIndexOf("temp_temp") != -1) {
+                        System.out.println("deleting " + f.getAbsolutePath());
+                        f.delete();
+                    }
                 }
             }
         }

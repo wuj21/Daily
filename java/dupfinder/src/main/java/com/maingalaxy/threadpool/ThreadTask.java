@@ -6,4 +6,5 @@ package com.maingalaxy.threadpool;
 public interface ThreadTask {
     public void run();
     public String getName();
+    public double getMetrics();
 }

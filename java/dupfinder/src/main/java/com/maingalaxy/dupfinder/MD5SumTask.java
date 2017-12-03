@@ -33,11 +33,14 @@ public class MD5SumTask implements ThreadTask {
             e.printStackTrace();
         }
     }
+
+    public double getMetrics() { return file.length() / 1000.0 / 1000.0;}
+
     public String getMd5sum() {
         return md5sum;
     }
 
     public String getName() {
-        return "Task " + file.getAbsolutePath() + " with " + file.length() + " bytes";
+        return "Task " + file.getAbsolutePath() + " with " + file.length() + " bytes ";
     }
 }

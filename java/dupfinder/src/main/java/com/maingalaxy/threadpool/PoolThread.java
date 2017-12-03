@@ -23,12 +23,13 @@ public class PoolThread extends Thread {
                 long ttt = 0;
                 try {
                     ttt = System.currentTimeMillis();
-                    System.out.println("Thread " + this.getName() + " run task " + task.getName());
+                    System.out.println("Thread " + this.getName() + ":" + task.getName() + "started!");
                     task.run();
                 } catch (Throwable t) {
                     t.printStackTrace();
                 } finally {
-                    System.out.println("Thread " + this.getName() + "run task " + task.getName() + " finished with " + (System.currentTimeMillis() - ttt) + "milliseconds");
+                    long e = System.currentTimeMillis() - ttt;
+                    System.out.println("Thread " + this.getName() + ":" + task.getName() + " finished with " + e + "milliseconds with " + (task.getMetrics() / (e / 1000.0)));
                     isWorking = false;
                     task = null;
                 }
