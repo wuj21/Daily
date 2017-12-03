@@ -1,0 +1,233 @@
+---
+azs:
+- name: pcf
+  cloud_properties:
+    datacenters:
+    - name: pcf
+      clusters:
+      - pcf:
+          resource_pool: 
+networks:
+- name: pcf
+  type: manual
+  subnets:
+  - dns:
+    - 10.152.2.10
+    range: 10.152.11.0/24
+    gateway: 10.152.11.1
+    azs:
+    - pcf
+    cloud_properties:
+      name: VM Network
+    reserved:
+    - 10.152.11.2-10.152.11.40
+    - 10.152.11.83-10.152.11.181
+    - 10.152.11.186-10.152.11.254
+    static:
+    - 10.152.11.41
+    - 10.152.11.42
+    - 10.152.11.43
+    - 10.152.11.44
+    - 10.152.11.45
+    - 10.152.11.46
+    - 10.152.11.50
+    - 10.152.11.51
+    - 10.152.11.52
+    - 10.152.11.55
+    - 10.152.11.61
+vm_types:
+- name: nano
+  cloud_properties:
+    ram: 512
+    cpu: 1
+    disk: 8192
+- name: micro
+  cloud_properties:
+    ram: 1024
+    cpu: 1
+    disk: 8192
+- name: micro.ram
+  cloud_properties:
+    ram: 1024
+    cpu: 2
+    disk: 8192
+- name: small
+  cloud_properties:
+    ram: 2048
+    cpu: 1
+    disk: 8192
+- name: small.disk
+  cloud_properties:
+    ram: 2048
+    cpu: 1
+    disk: 16384
+- name: medium
+  cloud_properties:
+    ram: 4096
+    cpu: 2
+    disk: 8192
+- name: medium.mem
+  cloud_properties:
+    ram: 8192
+    cpu: 1
+    disk: 8192
+- name: medium.disk
+  cloud_properties:
+    ram: 4096
+    cpu: 2
+    disk: 32768
+- name: medium.cpu
+  cloud_properties:
+    ram: 2048
+    cpu: 4
+    disk: 8192
+- name: large
+  cloud_properties:
+    ram: 8192
+    cpu: 2
+    disk: 16384
+- name: large.mem
+  cloud_properties:
+    ram: 16384
+    cpu: 1
+    disk: 16384
+- name: large.disk
+  cloud_properties:
+    ram: 8192
+    cpu: 2
+    disk: 65536
+- name: large.cpu
+  cloud_properties:
+    ram: 4096
+    cpu: 4
+    disk: 16384
+- name: xlarge
+  cloud_properties:
+    ram: 16384
+    cpu: 4
+    disk: 32768
+- name: xlarge.mem
+  cloud_properties:
+    ram: 32768
+    cpu: 2
+    disk: 32768
+- name: xlarge.disk
+  cloud_properties:
+    ram: 16384
+    cpu: 4
+    disk: 131072
+- name: xlarge.cpu
+  cloud_properties:
+    ram: 8192
+    cpu: 8
+    disk: 32768
+- name: 2xlarge
+  cloud_properties:
+    ram: 32768
+    cpu: 8
+    disk: 65536
+- name: 2xlarge.mem
+  cloud_properties:
+    ram: 65536
+    cpu: 4
+    disk: 65536
+- name: 2xlarge.disk
+  cloud_properties:
+    ram: 32768
+    cpu: 8
+    disk: 262144
+- name: 2xlarge.cpu
+  cloud_properties:
+    ram: 16384
+    cpu: 16
+    disk: 65536
+disk_types:
+- name: '1024'
+  disk_size: 1024
+  cloud_properties:
+    type: thin
+- name: '2048'
+  disk_size: 2048
+  cloud_properties:
+    type: thin
+- name: '5120'
+  disk_size: 5120
+  cloud_properties:
+    type: thin
+- name: '10240'
+  disk_size: 10240
+  cloud_properties:
+    type: thin
+- name: '20480'
+  disk_size: 20480
+  cloud_properties:
+    type: thin
+- name: '30720'
+  disk_size: 30720
+  cloud_properties:
+    type: thin
+- name: '51200'
+  disk_size: 51200
+  cloud_properties:
+    type: thin
+- name: '76800'
+  disk_size: 76800
+  cloud_properties:
+    type: thin
+- name: '102400'
+  disk_size: 102400
+  cloud_properties:
+    type: thin
+- name: '153600'
+  disk_size: 153600
+  cloud_properties:
+    type: thin
+- name: '204800'
+  disk_size: 204800
+  cloud_properties:
+    type: thin
+- name: '307200'
+  disk_size: 307200
+  cloud_properties:
+    type: thin
+- name: '512000'
+  disk_size: 512000
+  cloud_properties:
+    type: thin
+- name: '768000'
+  disk_size: 768000
+  cloud_properties:
+    type: thin
+- name: '1048576'
+  disk_size: 1048576
+  cloud_properties:
+    type: thin
+- name: '2097152'
+  disk_size: 2097152
+  cloud_properties:
+    type: thin
+- name: '5242880'
+  disk_size: 5242880
+  cloud_properties:
+    type: thin
+- name: '10485760'
+  disk_size: 10485760
+  cloud_properties:
+    type: thin
+- name: '16777216'
+  disk_size: 16777216
+  cloud_properties:
+    type: thin
+compilation:
+  workers: 4
+  network: pcf
+  az: pcf
+  reuse_compilation_vms: true
+  vm_type: large.cpu
+  vm_extensions: []
+  env:
+    bosh:
+      password: "$6$fcd83fad9c59d26b$kSX79oUfyUgTDqWDvWAWA.FzKwSAuGaqInseVb0V5CBixvweTAb4iXxeh1NmJ5rQ9FlDWvejnqh5CZB.pmkzQ1"
+vm_extensions:
+- name: public_ip
+  cloud_properties: {}

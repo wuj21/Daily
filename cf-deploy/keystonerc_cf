@@ -1,0 +1,9 @@
+unset OS_SERVICE_TOKEN
+    export OS_USERNAME=cf
+    export OS_PASSWORD=Chapter10io
+    export OS_AUTH_URL=http://172.16.1.109:5000/v2.0
+    export PS1='[\u@\h \W(keystone_cf)]\$ '
+    
+export OS_TENANT_NAME=cf
+export OS_REGION_NAME=RegionOne
+    

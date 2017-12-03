@@ -1,7 +1,15 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+	"strings"
+)
 
 func main() {
-	fmt.Printf("Hello Go!\n")
+	who := "World!"
+	if len(os.Args) > 1 {
+		who = strings.Join(os.Args[1:], " ")
+	}
+	fmt.Println("Hello", who)
 }
