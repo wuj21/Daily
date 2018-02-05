@@ -3,8 +3,9 @@ package main
 import "fmt"
 
 func main() {
-	var in, i uint64
-	for i = 1048577; i <= 1048577+999; i++ {
+	var in, i, start uint64
+  start = 1073741825 * 2 + 11
+	for i = start; i <= start + 1000; i++ {
 		in = i
 		for in > 1 {
 			fmt.Printf("%d->", in)
