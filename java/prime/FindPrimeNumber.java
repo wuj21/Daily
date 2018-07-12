@@ -1,17 +1,30 @@
 import java.util.*;
+class NumPrime {
+    int idx;
+    boolean isPrime = true;
+    public NumPrime(int n) {
+        idx = n;
+    }
+}
 public class FindPrimeNumber {
     public static void main(String[] args) {
-        List <Integer> all = new LinkedList<Integer> ();
-        System.out.println(Integer.MAX_VALUE);
-        for (int i = 3; i < Integer.MAX_VALUE / 4; i++) {
+        final int N = Integer.MAX_VALUE / 4;
+        NumPrime[] all = new NumPrime[N];
+        System.out.println(N);
+
+        for (int i = 0; i < N; i++) {
             if (i % 10000000 == 0) {
                 System.out.print(i + "->");
             }
-            all.add(i);
+            all [i] = new NumPrime(i + 1);
         }
+        all[0].isPrime = false;
+
         System.out.println("\n");
-        for (int i = 3; i < 24576; i += 2) {
+
+        for (int i = 0; i < 24576; i++) {
             System.out.println(i);
+
             int s = all.size();
             for (int j = 0; j < s; j++) {
                 if (j % 10000 == 0) {
@@ -28,4 +41,5 @@ public class FindPrimeNumber {
             System.out.print(all.get(i) + ",");
         }
     }
+
 }
