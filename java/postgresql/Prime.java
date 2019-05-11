@@ -22,7 +22,7 @@ public class Prime {
                           59, 61, 67, 71, 73,
                           79, 83, 89, 97};
         Thread[] primethreads = new PrimeThread[primes.length];
-        for (int i = 23; i >=0; i--) {
+        for (int i = 11; i >=0; i--) {
             primethreads[i] = new PrimeThread(primes[i]);
             primethreads[i].start();
         }
@@ -60,9 +60,9 @@ class PrimeThread extends Thread {
                 sum += 1;
                 //                System.out.println(getName() + ":" + s + ":" + sum);
                 s += p;
-                if (sum % 100000000 == 0) {
+                if (sum % 1000000 == 0) {
                     //      con.commit();
-                    //    System.out.println(getName() + ":" + p + " deleted " + sum + " rows during " +(System.currentTimeMillis() - start) );
+                    System.out.println(getName() + ":" + p + " deleted " + sum + " rows during " +(System.currentTimeMillis() - start) );
                 }
             }
         } catch (Exception e) {
