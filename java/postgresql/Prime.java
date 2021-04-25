@@ -16,16 +16,53 @@ public class Prime {
         }catch (Exception e) {
             e.printStackTrace();
             }*/
-        long [] primes = {3, 5, 7, 11, 13,
-                          17, 19, 23, 29, 31,
-                          37, 41, 43, 47, 53,
-                          59, 61, 67, 71, 73,
-                          79, 83, 89, 97};
+        long [] primes = { 
+	23603,
+ 23609,
+ 23623,
+ 23627,
+ 23629,
+ 23633,
+ 23663,
+ 23669,
+ 23671,
+ 23677,
+ 23687,
+ 23689,
+ 23719,
+ 23741,
+ 23743,
+ 23747,
+ 23753,
+ 23761,
+ 23767,
+ 23773,
+ 23789,
+ 23801,
+ 23813,
+ 23819        
+};
+                        
         Thread[] primethreads = new PrimeThread[primes.length];
-        for (int i = 11; i >=0; i--) {
+        for (int i = 23; i >=0; i--) {
             primethreads[i] = new PrimeThread(primes[i]);
             primethreads[i].start();
         }
+        boolean isEnded = false;
+        while (!isEnded) {
+            try {
+                Thread.sleep (1000);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            isEnded = true;
+            for (Thread t: primethreads) {
+                if (t.isAlive()) {
+                    isEnded = false;
+                }
+            }
+        }
+        System.out.println("done!");
     }
 }
 
@@ -33,34 +70,35 @@ class PrimeThread extends Thread {
     private Connection con = null;
     private PreparedStatement ps = null;
     private long p;
-    private static final long MAX = 34359738367L;
+    private static final long MAX = 68719476733L;
     public PrimeThread(long n) {
         p = n;
         try {
             Class.forName("org.postgresql.Driver");
-            con = DriverManager.getConnection("jdbc:postgresql://10.152.11.30:5432/jackdb","jack","");
+            con = DriverManager.getConnection("jdbc:postgresql://10.152.11.30:5432/jack","jack",""); 
             //            con.setAutoCommit(false);
-            ps = con.prepareStatement("delete from a0 where a=?");
+            ps = con.prepareStatement("delete from b0 where a=?");
         }catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public void run() {
-        long s = p + p;
-        long sum = 0;
+        long s = p + p + p;
+        long sum = 1;
         long start = System.currentTimeMillis();
         try {
             while (s <= MAX) {
+                /*
                 if (s % 2 == 0 ) {
                     s += p;
-                }
+                    }*/
                 ps.setLong(1, s);
-                ps.executeUpdate();
-                sum += 1;
+                sum += ps.executeUpdate();
+                //sum += 1;
                 //                System.out.println(getName() + ":" + s + ":" + sum);
-                s += p;
-                if (sum % 1000000 == 0) {
+                s += (p + p);
+                if (sum % 10000 == 0) {
                     //      con.commit();
                     System.out.println(getName() + ":" + p + " deleted " + sum + " rows during " +(System.currentTimeMillis() - start) );
                 }
